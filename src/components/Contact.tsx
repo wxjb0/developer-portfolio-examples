@@ -1,97 +1,117 @@
 import { motion } from 'framer-motion'
+import { Mail, Github, Twitter, MessageCircle, Send, MapPin } from 'lucide-react'
 
 const contacts = [
   {
     label: 'Email',
     value: 'hello@example.com',
     href: 'mailto:hello@example.com',
-    icon: (
-      <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-        />
-      </svg>
-    ),
+    icon: Mail,
+    color: 'from-red-500 to-orange-500',
   },
   {
     label: 'GitHub',
-    value: '@example',
-    href: 'https://github.com/example',
-    icon: (
-      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-      </svg>
-    ),
+    value: '@CodePhantom',
+    href: 'https://github.com/wxjb0',
+    icon: Github,
+    color: 'from-gray-600 to-gray-800',
   },
   {
-    label: 'Twitter',
-    value: '@example',
+    label: 'Twitter / X',
+    value: '@CodePhantom',
     href: 'https://twitter.com/example',
-    icon: (
-      <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    ),
+    icon: Twitter,
+    color: 'from-blue-400 to-blue-600',
   },
 ]
 
 export default function Contact() {
   return (
-    <section id="contact" className="px-6 py-24">
-      <div className="mx-auto max-w-2xl text-center">
-        {/* Section title */}
-        <motion.h2
+    <section id="contact" className="relative px-6 py-24">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -left-40 bottom-1/4 h-80 w-80 rounded-full bg-accent/10 blur-3xl" />
+      </div>
+
+      <div className="relative mx-auto max-w-2xl text-center">
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-4 text-3xl font-bold md:text-4xl"
+          className="mb-12 flex items-center justify-center gap-4"
         >
-          联系
-          <span className="bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-transparent">
-            我
-          </span>
-        </motion.h2>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-text/20" />
+          <h2 className="flex items-center gap-3 text-3xl font-bold md:text-4xl">
+            <MessageCircle className="h-8 w-8 text-accent" />
+            联系
+            <span className="bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-transparent">
+              我
+            </span>
+          </h2>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-text/20" />
+        </motion.div>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1, duration: 0.5 }}
-          className="mb-12 text-text/60"
+          className="mb-12"
         >
-          如果你有任何问题或合作意向，欢迎随时联系我
-        </motion.p>
+          <div className="flex items-center justify-center gap-2 text-text/60">
+            <MapPin className="h-4 w-4 text-accent" />
+            <span>基于中国，面向全球</span>
+          </div>
+          <p className="mt-4 text-text/50">
+            如果你有任何问题或合作意向，欢迎随时联系我
+          </p>
+        </motion.div>
 
-        {/* Contact cards */}
         <div className="flex flex-col gap-4">
-          {contacts.map((contact, index) => (
-            <motion.a
-              key={contact.label}
-              href={contact.href}
-              target={contact.href.startsWith('http') ? '_blank' : undefined}
-              rel={
-                contact.href.startsWith('http')
-                  ? 'noopener noreferrer'
-                  : undefined
-              }
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
-              className="flex items-center gap-4 rounded-xl border border-text/10 bg-text/[0.03] p-4 transition-all hover:border-accent/30 hover:bg-accent/5"
-            >
-              <span className="text-accent">{contact.icon}</span>
-              <div className="text-left">
-                <p className="text-sm text-text/50">{contact.label}</p>
-                <p className="text-text">{contact.value}</p>
-              </div>
-            </motion.a>
-          ))}
+          {contacts.map((contact, index) => {
+            const Icon = contact.icon
+            return (
+              <motion.a
+                key={contact.label}
+                href={contact.href}
+                target={contact.href.startsWith('http') ? '_blank' : undefined}
+                rel={
+                  contact.href.startsWith('http')
+                    ? 'noopener noreferrer'
+                    : undefined
+                }
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 + index * 0.1, duration: 0.5 }}
+                className="group flex items-center gap-4 rounded-xl border border-text/10 bg-text/[0.02] p-4 transition-all hover:border-accent/30 hover:bg-accent/5"
+              >
+                <div
+                  className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${contact.color} text-white shadow-lg transition-transform group-hover:scale-110`}
+                >
+                  <Icon className="h-5 w-5" />
+                </div>
+                <div className="flex-1 text-left">
+                  <p className="text-sm text-text/50">{contact.label}</p>
+                  <p className="font-medium text-text">{contact.value}</p>
+                </div>
+                <Send className="h-5 w-5 text-text/30 transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-accent" />
+              </motion.a>
+            )
+          })}
         </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="mt-12 rounded-xl border border-accent/20 bg-accent/5 p-6"
+        >
+          <p className="text-sm text-text/60">
+            期待与你的交流！无论是技术讨论、项目合作还是单纯的打招呼，都欢迎联系我。
+          </p>
+        </motion.div>
       </div>
     </section>
   )

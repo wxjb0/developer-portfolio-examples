@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { Menu, X, Code2 } from 'lucide-react'
 
 const navLinks = [
   { label: '首页', href: '#hero' },
@@ -30,69 +31,68 @@ export default function Header() {
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        {/* Logo */}
         <a
           href="#hero"
-          className="bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-2xl font-bold text-transparent"
+          className="flex items-center gap-2 text-2xl font-bold"
         >
-          Portfolio
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-accent-secondary">
+            <Code2 className="h-5 w-5 text-white" />
+          </div>
+          <span className="bg-gradient-to-r from-accent to-accent-secondary bg-clip-text text-transparent">
+            CodePhantom
+          </span>
         </a>
 
-        {/* Desktop nav */}
         <ul className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <li key={link.href}>
+          {navLinks.map((link, index) => (
+            <motion.li
+              key={link.href}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+            >
               <a
                 href={link.href}
-                className="text-sm text-text/70 transition-colors hover:text-text"
+                className="relative text-sm text-text/70 transition-colors hover:text-text"
               >
                 {link.label}
+                <span className="absolute -bottom-1 left-0 h-0.5 w-0 bg-gradient-to-r from-accent to-accent-secondary transition-all hover:w-full" />
               </a>
-            </li>
+            </motion.li>
           ))}
         </ul>
 
-        {/* Mobile menu button */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="flex flex-col gap-1.5 md:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-lg border border-text/10 text-text/70 transition-colors hover:border-accent/50 hover:text-text md:hidden"
           aria-label="Toggle menu"
         >
-          <span
-            className={`block h-0.5 w-6 bg-text transition-transform ${
-              menuOpen ? 'translate-y-2 rotate-45' : ''
-            }`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-text transition-opacity ${
-              menuOpen ? 'opacity-0' : ''
-            }`}
-          />
-          <span
-            className={`block h-0.5 w-6 bg-text transition-transform ${
-              menuOpen ? '-translate-y-2 -rotate-45' : ''
-            }`}
-          />
+          {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </nav>
 
-      {/* Mobile menu */}
       {menuOpen && (
         <motion.ul
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col gap-4 bg-bg/95 px-6 pb-6 backdrop-blur-md md:hidden"
+          exit={{ opacity: 0, y: -10 }}
+          className="flex flex-col gap-2 border-t border-text/10 bg-bg/95 px-6 pb-6 backdrop-blur-md md:hidden"
         >
-          {navLinks.map((link) => (
-            <li key={link.href}>
+          {navLinks.map((link, index) => (
+            <motion.li
+              key={link.href}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.05 }}
+            >
               <a
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="block text-text/70 transition-colors hover:text-text"
+                className="block rounded-lg px-4 py-3 text-text/70 transition-colors hover:bg-accent/10 hover:text-text"
               >
                 {link.label}
               </a>
-            </li>
+            </motion.li>
           ))}
         </motion.ul>
       )}
